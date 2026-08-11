@@ -1,0 +1,29 @@
+{
+  "name": "craftech-aws-summit-workshop-full-bedrock",
+  "version": "1.0.0",
+  "private": true,
+  "description": "El mismo agente del workshop, sobre la suite gestionada de Bedrock: AgentCore Harness + Gateway + Memory",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "cdk": "cdk",
+    "deploy": "cdk deploy --require-approval never",
+    "destroy": "cdk destroy",
+    "permisos": "./scripts/permisos.sh",
+    "chat": "ts-node scripts/chat.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "aws-cdk": "^2.1000.0",
+    "esbuild": "^0.24.2",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.7.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-agentcore": "^3.1107.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.1110.0",
+    "@aws-sdk/client-cloudformation": "^3.1107.0",
+    "aws-cdk-lib": "^2.263.0",
+    "aws-jwt-verify": "^5.2.1",
+    "constructs": "^10.4.2"
+  }
+}

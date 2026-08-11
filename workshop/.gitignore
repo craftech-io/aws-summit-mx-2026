@@ -1,0 +1,22 @@
+*.js
+!jest.config.js
+!web/app.js
+*.d.ts
+node_modules
+
+# CDK
+.cdk.staging
+cdk.out
+cdk.context.json
+
+# Entorno
+.env
+.env.local
+salida-deploy.json
+
+# Lo genera el deploy con las salidas de CloudFormation
+web/config.js
+
+# Sistema
+.DS_Store
+*.log

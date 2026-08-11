@@ -1,0 +1,7 @@
+{
+  "app": "npx ts-node --prefer-ts-exts bin/full-bedrock.ts",
+  "context": {
+    "prefijo": "summit",
+    "modeloId": "us.anthropic.claude-opus-5"
+  }
+}

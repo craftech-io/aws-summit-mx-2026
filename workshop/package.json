@@ -1,0 +1,48 @@
+{
+  "name": "craftech-aws-summit-workshop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Agente de atención al cliente 100% serverless en AWS — workshop del AWS Summit México",
+  "bin": {
+    "workshop": "bin/workshop.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "typecheck": "tsc --noEmit",
+    "cdk": "cdk",
+    "deploy": "cdk deploy --all --require-approval never",
+    "todo": "./scripts/desplegar-todo.sh",
+    "destroy": "cdk destroy --all",
+    "seed": "ts-node scripts/seed.ts",
+    "probar:formato": "node scripts/probar-formato.mjs",
+    "seed:lakehouse": "ts-node scripts/seed-lakehouse.ts",
+    "lakehouse:permisos": "./scripts/lakehouse-permisos.sh",
+    "kb:ingesta": "ts-node scripts/kb-ingesta.ts"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-bedrock-agent": "^3.1107.0",
+    "@aws-sdk/client-cloudformation": "^3.1107.0",
+    "@types/aws-lambda": "^8.10.147",
+    "@types/node": "^22.10.2",
+    "aws-cdk": "^2.1000.0",
+    "esbuild": "^0.24.2",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.7.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-athena": "^3.1107.0",
+    "@aws-sdk/client-bedrock-agent-runtime": "^3.717.0",
+    "@aws-sdk/client-bedrock-agentcore": "^3.1107.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.717.0",
+    "@aws-sdk/client-dynamodb": "^3.717.0",
+    "@aws-sdk/client-s3": "^3.717.0",
+    "@aws-sdk/client-sns": "^3.717.0",
+    "@aws-sdk/client-ssm": "^3.1075.0",
+    "@aws-sdk/lib-dynamodb": "^3.717.0",
+    "@aws-sdk/s3-request-presigner": "^3.717.0",
+    "aws-cdk-lib": "^2.173.0",
+    "aws-jwt-verify": "^5.2.1",
+    "constructs": "^10.4.2"
+  }
+}
