@@ -2,18 +2,18 @@
 //
 //   npm run probar:formato
 //
-// La web no tiene bundler ni módulos —es un solo <script> sin build—, así que
-// la función se saca del fuente y se evalúa acá. Feo pero honesto: prueba
-// exactamente el código que se sirve.
+// La función vive en la webapp compartida (webapp/src/formato.ts). Se
+// transpila con esbuild y se importa tal cual: prueba exactamente el código
+// que se sirve, sin copiarlo ni recortarlo del fuente.
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { transformSync } from "esbuild";
 
-const raiz = dirname(dirname(fileURLToPath(import.meta.url)));
-const fuente = readFileSync(join(raiz, "web", "app.js"), "utf8");
-const desde = fuente.indexOf("function formatearRespuesta");
-const hasta = fuente.indexOf("\n}", desde) + 2;
-const formatearRespuesta = eval(`(${fuente.slice(desde, hasta)})`);
+const raiz = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
+const fuente = readFileSync(join(raiz, "webapp", "src", "formato.ts"), "utf8");
+const { code } = transformSync(fuente, { loader: "ts", format: "esm" });
+const { formatearRespuesta } = await import(`data:text/javascript,${encodeURIComponent(code)}`);
 
 const casos = [
   {

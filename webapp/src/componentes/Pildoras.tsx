@@ -7,8 +7,7 @@ export interface PreguntaDemo {
   fuente: Fuente;
 }
 
-/* Preguntas de la demo, con la fuente que les corresponde. Port textual de
-   PREGUNTAS_DEMO en workshop/web/app.js. */
+/* Preguntas de la demo, con la fuente que les corresponde. */
 export const PREGUNTAS_DEMO: PreguntaDemo[] = [
   { etiqueta: "🤖 ¿Qué sabés?", texto: "¿Sobre qué temas me podés ayudar?", fuente: "gold" },
   { etiqueta: "📦 Mis pedidos", texto: "¿Cuáles son mis pedidos?", fuente: "gold" },

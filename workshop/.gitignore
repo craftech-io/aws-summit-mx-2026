@@ -1,6 +1,5 @@
 *.js
 !jest.config.js
-!web/app.js
 *.d.ts
 node_modules
 
@@ -13,9 +12,6 @@ cdk.context.json
 .env
 .env.local
 salida-deploy.json
-
-# Lo genera el deploy con las salidas de CloudFormation
-web/config.js
 
 # Sistema
 .DS_Store

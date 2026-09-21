@@ -315,7 +315,7 @@ Las mismas herramientas están expuestas por JSON-RPC 2.0 en `POST /mcp` (mirá 
 
 El endpoint está detrás del mismo autorizador de Cognito que el chat, así que necesitás tu `id_token`.
 
-**Sacar el `id_token` de las DevTools.** El front lo guarda en `sessionStorage` después del login (`sessionStorage.setItem("idToken", ...)` en `web/app.js`). `sessionStorage` es **por pestaña**: tiene que ser la misma pestaña donde te logueaste.
+**Sacar el `id_token` de las DevTools.** El front lo guarda en `sessionStorage` después del login (`sessionStorage.setItem("idToken", ...)` en `webapp/src/App.tsx`). `sessionStorage` es **por pestaña**: tiene que ser la misma pestaña donde te logueaste.
 
 1. Andá a la pestaña del sitio, ya logueado, y abrí las DevTools con `F12` (en Mac: `⌥ + ⌘ + I`).
 2. En Chrome o Edge, entrá a la solapa **Application**. En Firefox se llama **Almacenamiento** / **Storage**.

@@ -20,7 +20,7 @@ interface ChatProps {
 }
 
 /** Un turno de la conversación o una línea de consumo, en el orden en que
- *  se van agregando a la pantalla (igual que el DOM de app.js). */
+ *  se van agregando a la pantalla. */
 type Entrada =
   | { id: string; tipo: "mensaje"; quien: Quien; texto: string; urlImagen?: string }
   | { id: string; tipo: "consumo"; fuente: Fuente; tokensEntrada: number; tokensSalida: number; fuentesDatos: string[]; segundos: number };
@@ -41,8 +41,7 @@ const SALUDO_LAMBDA =
   "¡Hola! Soy el asistente de Craftech Store. Puedo ayudarte con tus pedidos, " +
   "consultas sobre envíos y devoluciones, o abrir un reclamo. ¿Qué necesitás?";
 
-// Burbuja de bienvenida del modo harness: texto tal cual el que muestra
-// pagina.ts al terminar el login.
+// Burbuja de bienvenida del modo harness, al terminar el login.
 const SALUDO_HARNESS =
   "¡Hola! Soy el agente de la tienda — la versión gestionada: AgentCore Harness corre mi loop " +
   "y el Gateway me da las herramientas. Preguntame por tus pedidos, políticas o reclamos.";

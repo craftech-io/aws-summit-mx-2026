@@ -105,7 +105,7 @@ Se abre el chat con este mensaje:
 consultas sobre envíos y devoluciones, o abrir un reclamo. ¿Qué necesitás?
 ```
 
-Ese saludo lo escribe el front (`web/app.js`), no el modelo: todavía no gastaste un token. Tenés tres intentos por sesión de login; después del tercero fallido, `defineAuthChallenge` corta con `failAuthentication` y hay que volver a pedir el código.
+Ese saludo lo escribe el front (`webapp/src/componentes/Chat.tsx`), no el modelo: todavía no gastaste un token. Tenés tres intentos por sesión de login; después del tercero fallido, `defineAuthChallenge` corta con `failAuthentication` y hay que volver a pedir el código.
 
 ### 5. Sacá el UserPoolId
 
@@ -294,7 +294,6 @@ La tercera, en el navegador: preguntale `¿cuáles son mis pedidos?` y verificá
 | Síntoma | Por qué pasa | Cómo se arregla |
 |---|---|---|
 | No llega ningún SMS al celular | SNS está en sandbox y solo entrega a números verificados; la Lambda ni siquiera corta el login, loguea `No se pudo enviar el SMS` y sigue | Usá el código que muestra la pantalla (`Modo demo — tu código es …`) o verificá tu número como en el punto 3 |
-| Al pedir el código aparece un cartel rojo diciendo que ya existe una cuenta con ese número (`UsernameExistsException`) | El alta silenciosa de `web/app.js` solo tolera ese error si el texto contiene `UsernameExists`, y Cognito lo devuelve redactado de otra forma; entonces lo re-lanza y nunca llega a `InitiateAuth` | Probá con otro número (y volvé a correr el seed con el `sub` nuevo), o ajustá esa comparación en `web/app.js` y redesplegá con `npx cdk deploy summit-web` |
 | El seed corta con `Falló el seed: ResourceNotFoundException: Requested resource not found` | La tabla `summit-pedidos` no existe en la región que está usando el script: desplegaste en otra región o con otro prefijo | `AWS_REGION=<tu-region> npx ts-node scripts/seed.ts <clienteId>`, o `PREFIJO=<tu-prefijo>` si cambiaste el contexto de `cdk.json` |
 | El seed carga los pedidos pero muere al indexar, con `AccessDeniedException: You don't have access to the model with the specified model ID.` | Titan Text Embeddings V2 no está habilitado en la cuenta, o tus credenciales locales no tienen `bedrock:InvokeModel` | Consola → **Bedrock → Model access** → habilitá *Titan Text Embeddings V2* (se aprueba al instante) y volvé a correr el seed: es idempotente, sobrescribe |
 | El agente responde amablemente pero la traza dice `ninguna (respondió de contexto)` y no encuentra pedidos | El seed se corrió con un `clienteId` que no es tu `sub`, o no se corrió | Reconfirmá el `sub` con `aws cognito-idp list-users` (punto 6) y repetí el seed con ese valor |

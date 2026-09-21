@@ -14,7 +14,7 @@ const fmt = (n: number) => n.toLocaleString("es-AR");
  * Línea de consumo debajo de cada respuesta: cuánto costó ESTA interacción.
  * Es el número que se compara en vivo al alternar entre gold y detalle
  * (modo lambda) o simplemente el costo del turno (modo harness, siempre
- * gold). Port directo de agregarConsumo en workshop/web/app.js.
+ * gold).
  */
 export default function Consumo({ fuente, tokensEntrada, tokensSalida, fuentesDatos, segundos }: ConsumoProps) {
   const partes = [

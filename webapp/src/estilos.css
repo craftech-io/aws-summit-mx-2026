@@ -198,8 +198,7 @@ small {
   color: #9fc4d3;
 }
 
-/* Insignia "FULL BEDROCK" del modo harness: no existe en app.js, se toma
-   del header inline de pagina.ts. */
+/* Insignia "FULL BEDROCK" del modo harness. */
 .badge {
   background: var(--cyan-oscuro);
   color: var(--blanco);

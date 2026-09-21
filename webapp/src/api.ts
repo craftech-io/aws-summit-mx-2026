@@ -142,8 +142,9 @@ async function leerError(respuesta: Response): Promise<string> {
 
 /**
  * Manda un mensaje al agente. El shape de request/response cambia según el
- * modo: en lambda hablamos con lambda/agent/index.ts (POST /chat, auth sin
- * "Bearer "); en harness hablamos con el puente de pagina.ts/index.ts
+ * modo: en lambda hablamos con workshop/lambda/agent/index.ts (POST /chat,
+ * auth sin "Bearer "); en harness, con el puente de
+ * workshop-full-bedrock/lambda/web/index.ts
  * (body {mensaje, sesionId}, auth "Bearer <token>", respuesta {texto, tools,
  * usage, ms}). Acá se normaliza todo a un único ResultadoChat.
  */

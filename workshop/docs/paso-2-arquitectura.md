@@ -311,7 +311,7 @@ Las tres van a la misma Lambda; el ruteo interno está en `lambda/agent/index.ts
 
 ### 5. `summit-web` — S3 privado + CloudFront
 
-Archivo: `lib/web-stack.ts`. Es el stack más chico y no tiene build step: `web/` es HTML, CSS, un `app.js` sin frameworks y el logo.
+Archivo: `lib/web-stack.ts`. Es el stack más chico, porque la interfaz no vive acá: es la app React (Vite) de [`webapp/`](../../webapp/), en la raíz del repo, compartida con la [versión full Bedrock](../../workshop-full-bedrock/). Este stack publica su build ya compilado; por eso, antes del primer deploy, `cd ../webapp && npm install && npm run build` (el `npm run todo` lo hace solo).
 
 El bucket está cerrado (`BLOCK_ALL`) y CloudFront lo lee con Origin Access Control:
 
@@ -323,7 +323,9 @@ Nadie llega al bucket directo por HTTP. Y la parte linda: la configuración del 
 
 ```typescript
 const config = {
+  modo: "lambda",
   apiUrl: props.apiUrl,
+  chatUrl: props.chatUrl,
   userPoolId: props.userPoolId,
   userPoolClientId: props.userPoolClientId,
   region: this.region,
@@ -331,7 +333,7 @@ const config = {
 
 new s3deploy.BucketDeployment(this, "DesplegarWeb", {
   sources: [
-    s3deploy.Source.asset(path.join(__dirname, "..", "web")),
+    s3deploy.Source.asset(dist), // webapp/dist
     s3deploy.Source.data("config.js", `window.CONFIG = ${JSON.stringify(config, null, 2)};`),
   ],
   destinationBucket: bucket,
@@ -341,7 +343,7 @@ new s3deploy.BucketDeployment(this, "DesplegarWeb", {
 });
 ```
 
-`Source.data` inventa un archivo `config.js` en el momento del deploy con los IDs reales, y `distributionPaths: ["/*"]` invalida la caché de CloudFront. Ese archivo se genera dentro del asset que va al bucket: no existe en tu disco, ni antes ni después de desplegar. `web/config.js` figura igual en el `.gitignore` para que a nadie se le ocurra crearlo a mano y commitear los IDs de su cuenta.
+`Source.data` inventa un archivo `config.js` en el momento del deploy con los IDs reales, y `distributionPaths: ["/*"]` invalida la caché de CloudFront. `modo` es lo que hace que la misma app se comporte como la interfaz de este workshop (`"lambda"`) o como la de la versión full Bedrock (`"harness"`). En tu disco hay un `webapp/public/config.js` con los valores vacíos, para que `npm run dev` arranque; en el deploy, el de `Source.data` lo pisa, y el que tiene los IDs de tu cuenta solo existe en el bucket. Si lo completás a mano para desarrollar local, no lo commitees.
 
 ---
 
@@ -719,7 +721,7 @@ token verificado, entre por donde entre.
 
 Ahora sí, el por qué de las cuatro Lambdas. Cognito **no tiene** un botón de "login por SMS sin contraseña". Tiene un flujo genérico, `CUSTOM_AUTH`, en el que vos escribís qué es un desafío, cómo se emite y cómo se valida. Cada Lambda es un punto de extensión de ese flujo.
 
-La secuencia completa, con lo que hace el frontend (`web/app.js`) de un lado y los triggers del otro:
+La secuencia completa, con lo que hace el frontend (`webapp/src/api.ts`) de un lado y los triggers del otro:
 
 | # | El navegador llama | Cognito invoca | Archivo | Qué hace |
 |---|---|---|---|---|
