@@ -5,7 +5,9 @@ node_modules/
 *.js
 *.d.ts
 *.js.map
-!workshop/web/*.js
+# La config de desarrollo de la webapp sí se versiona: el deploy la
+# reemplaza por la real, pero `npm run dev` la necesita para arrancar.
+!webapp/public/config.js
 
 # CDK
 cdk.out/
@@ -14,6 +16,9 @@ cdk.context.json
 # Entorno local
 .env
 .env.local
+
+# Configuración local de Claude Code
+.claude/
 
 # Sistema
 .DS_Store

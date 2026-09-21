@@ -9,8 +9,7 @@ export interface EncabezadoProps {
   onSalir: () => void;
 }
 
-// Texto del subtítulo en modo harness: tal cual lo pide la consigna, no
-// existe en pagina.ts como constante propia pero es el mismo <span class=sub>.
+// Subtítulo del modo harness: qué pieza de AgentCore resuelve cada parte.
 const SUBTITULO_HARNESS =
   "AgentCore Harness corre el loop · Gateway expone las tools MCP · Memory recuerda por sesión";
 
